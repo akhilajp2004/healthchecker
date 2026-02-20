@@ -9,155 +9,68 @@
 
 <body>
 
+<h1 class="title">Comprehensive Health Risk Assessment</h1>
+
 <div class="container">
-    <h1>Comprehensive Health Risk Assessment</h1>
 
-    <form id="riskForm">
+<form id="riskForm" class="section-card">
 
-        <!-- ================= BMI SECTION ================= -->
-        <div class="section-card">
-            <h2>🧮 BMI Assessment</h2>
+    <h2>🧮 BMI & Demographics</h2>
 
-            <div class="input-group">
-                <label>Age</label>
-                <input type="number" id="age" required>
-            </div>
-
-            <div class="input-group">
-                <label>Gender</label>
-                <select id="gender">
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-            </div>
-
-            <div class="input-group">
-                <label>Height (meters)</label>
-                <input type="number" step="0.01" id="height" required>
-            </div>
-
-            <div class="input-group">
-                <label>Weight (kg)</label>
-                <input type="number" step="0.1" id="weight" required>
-            </div>
-        </div>
-
-
-        <!-- ================= SLEEP SECTION ================= -->
-        <div class="section-card">
-            <h2>😴 Sleep Assessment</h2>
-
-            <div class="input-group">
-                <label>Average Sleep Hours (per day)</label>
-                <input type="number" id="sleep" min="0" max="24" required>
-            </div>
-        </div>
-
-
-        <!-- ================= MEDICATION SECTION ================= -->
-        <div class="section-card">
-            <h2>💊 Medication Intake Assessment</h2>
-
-            <div class="input-group">
-                <label>Medication Type</label>
-                <select id="medType">
-                    <option>Diabetes medication</option>
-                    <option>Blood pressure medication</option>
-                    <option>Thyroid medication</option>
-                    <option>Antibiotics</option>
-                    <option>Pain medication</option>
-                    <option>Other</option>
-                </select>
-            </div>
-
-            <div class="input-group">
-                <label>Prescribed Frequency</label>
-                <select id="medFrequency">
-                    <option>Once daily</option>
-                    <option>Twice daily</option>
-                    <option>Thrice daily</option>
-                </select>
-            </div>
-
-            <div class="input-group">
-                <label>Actual Intake Pattern</label>
-                <select id="medPattern">
-                    <option value="ontime">On time</option>
-                    <option value="late1">1–2 hours late</option>
-                    <option value="late3">3+ hours late</option>
-                    <option value="early">Took early</option>
-                    <option value="missed">Frequently missed</option>
-                </select>
-            </div>
-        </div>
-
-        <button type="submit" class="analyze-btn">Analyze Overall Risk</button>
-    </form>
-
-    <div class="result-card" id="resultCard">
-        <h2>Assessment Results</h2>
-        <p id="bmiResult"></p>
-        <p id="sleepResult"></p>
-        <p id="medResult"></p>
-        <p id="riskResult"></p>
+    <div class="input-group">
+        <label>Age</label>
+        <input type="number" id="age" required>
     </div>
+
+    <div class="input-group">
+        <label>Height (meters)</label>
+        <input type="number" step="0.01" id="height" required>
+    </div>
+
+    <div class="input-group">
+        <label>Weight (kg)</label>
+        <input type="number" step="0.1" id="weight" required>
+    </div>
+
+    <h2>😴 Sleep Assessment</h2>
+
+    <div class="input-group">
+        <label>Average Sleep Hours</label>
+        <input type="number" id="sleep" min="0" max="24" required>
+    </div>
+
+    <h2>💊 Medication Adherence</h2>
+
+    <div class="input-group">
+        <label>Medication Pattern</label>
+        <select id="medPattern">
+            <option value="ontime">On time</option>
+            <option value="late1">1–2 hours late</option>
+            <option value="late3">3+ hours late</option>
+            <option value="missed">Frequently missed</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn">Analyze Overall Risk</button>
+
+</form>
+
+
+<!-- Result Card -->
+<div class="card result-card" id="resultCard" style="display:none;">
+    <h2>Assessment Results</h2>
+    <p id="bmiResult"></p>
+    <p id="sleepResult"></p>
+    <p id="medResult"></p>
+    <p id="riskResult" class="risk-highlight"></p>
+</div>
+
+<br>
+<a href="index.html" class="btn">Back to Dashboard</a>
 
 </div>
 
-<script>
-document.getElementById("riskForm").addEventListener("submit", function(e){
-    e.preventDefault();
-    calculateRisk();
-});
-
-function calculateRisk() {
-
-    let age = parseInt(document.getElementById("age").value);
-    let height = parseFloat(document.getElementById("height").value);
-    let weight = parseFloat(document.getElementById("weight").value);
-    let sleep = parseInt(document.getElementById("sleep").value);
-    let medPattern = document.getElementById("medPattern").value;
-
-    let bmi = weight / (height * height);
-    let riskPoints = 0;
-    let bmiCategory = "";
-
-    // BMI
-    if (bmi < 18.5) bmiCategory = "Underweight";
-    else if (bmi < 25) bmiCategory = "Normal";
-    else if (bmi < 30) { bmiCategory = "Overweight"; riskPoints += 1; }
-    else { bmiCategory = "Obese"; riskPoints += 2; }
-
-    // Sleep
-    if (sleep < 5) riskPoints += 2;
-    else if (sleep < 7) riskPoints += 1;
-
-    // Medication adherence
-    if (medPattern === "late1") riskPoints += 1;
-    if (medPattern === "late3" || medPattern === "early") riskPoints += 2;
-    if (medPattern === "missed") riskPoints += 3;
-
-    if (age > 45) riskPoints += 1;
-
-    let riskLevel = riskPoints <= 2 ? "Low Risk" :
-                    riskPoints <= 4 ? "Moderate Risk" :
-                    "High Risk";
-
-    document.getElementById("bmiResult").innerHTML =
-        `BMI: ${bmi.toFixed(2)} (${bmiCategory})`;
-
-    document.getElementById("sleepResult").innerHTML =
-        `Sleep Evaluation: ${sleep} hours/day`;
-
-    document.getElementById("medResult").innerHTML =
-        `Medication Adherence Pattern: ${medPattern}`;
-
-    document.getElementById("riskResult").innerHTML =
-        `<strong>Overall Risk Level: ${riskLevel}</strong>`;
-
-    document.getElementById("resultCard").style.display = "block";
-}
-</script>
+<script src="app.js"></script>
 
 </body>
 </html>

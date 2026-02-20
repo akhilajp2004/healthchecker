@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Habit Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1 class="title">Habit Tracker</h1>
+
+<div class="card habit-card">
+
+    <h2>Daily Habits</h2>
+
+    <div class="habit-item">
+        <input type="checkbox" id="sleep">
+        <label for="sleep">😴 7+ Hours Sleep</label>
+    </div>
+
+    <div class="habit-item">
+        <input type="checkbox" id="exercise">
+        <label for="exercise">🏃 Exercise</label>
+    </div>
+
+    <div class="habit-item">
+        <input type="checkbox" id="water">
+        <label for="water">💧 2L Water</label>
+    </div>
+
+    <button class="btn" onclick="calculateHabit()">Submit</button>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <p id="habitResult"></p>
+
+    <br>
+    <a href="index.html" class="btn">Back to Dashboard</a>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>

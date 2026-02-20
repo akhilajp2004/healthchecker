@@ -75,3 +75,65 @@ body {
 .btn:hover {
     background: #4b0fa3;
 }
+
+
+
+.habit-item {
+    text-align: left;
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.progress-container {
+    width: 100%;
+    background: #eee;
+    border-radius: 20px;
+    margin: 15px 0;
+    height: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    transition: width 0.4s ease;
+}
+
+
+.section-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    width: 350px;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.result-card {
+    margin-top: 20px;
+}
+
+.risk-highlight {
+    font-size: 20px;
+    font-weight: bold;
+}
