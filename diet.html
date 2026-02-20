@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diet Assessment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1 class="title">Diet Quality Assessment</h1>
+
+<div class="container">
+
+<form id="dietForm" class="section-card">
+
+    <h2>🥗 Daily Nutrition Intake</h2>
+
+    <div class="input-group">
+        <label>Vegetable Servings per Day</label>
+        <input type="number" id="vegetables" min="0" required>
+    </div>
+
+    <div class="input-group">
+        <label>Fruit Servings per Day</label>
+        <input type="number" id="fruits" min="0" required>
+    </div>
+
+    <div class="input-group">
+        <label>Water Intake (liters/day)</label>
+        <input type="number" step="0.1" id="waterIntake" required>
+    </div>
+
+    <div class="input-group">
+        <label>Junk Food Frequency (per week)</label>
+        <input type="number" id="junk" min="0" required>
+    </div>
+
+    <div class="input-group">
+        <label>Added Sugar Intake</label>
+        <select id="sugar">
+            <option value="low">Low</option>
+            <option value="moderate">Moderate</option>
+            <option value="high">High</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn">Analyze Diet</button>
+
+</form>
+
+
+<!-- Result Card -->
+<div class="card result-card" id="dietResultCard" style="display:none;">
+    <h2>Diet Assessment Results</h2>
+    <p id="dietScore"></p>
+    <p id="dietFeedback"></p>
+</div>
+
+<br>
+<a href="index.html" class="btn">Back to Dashboard</a>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>

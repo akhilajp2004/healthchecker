@@ -137,3 +137,32 @@ body {
     font-size: 20px;
     font-weight: bold;
 }
+
+
+/* Improve form spacing */
+form h2 {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    color: #6a11cb;
+}
+
+/* Smooth input focus effect */
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;
+    border: 2px solid #6a11cb;
+    box-shadow: 0 0 5px rgba(106,17,203,0.4);
+}
+
+/* Better result card spacing */
+.result-card p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+/* Responsive improvement */
+@media (max-width: 600px) {
+    .section-card {
+        width: 90%;
+    }
+}

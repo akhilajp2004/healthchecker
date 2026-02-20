@@ -118,3 +118,71 @@ function calculateHabit() {
 
     localStorage.setItem("habit", percentage);
 }
+
+// ==========================
+// DIET MODULE LOGIC
+// ==========================
+
+document.addEventListener("DOMContentLoaded", function () {
+    const dietForm = document.getElementById("dietForm");
+    if (dietForm) {
+        dietForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            calculateDiet();
+        });
+    }
+});
+
+function calculateDiet() {
+
+    let vegetables = parseInt(document.getElementById("vegetables").value);
+    let fruits = parseInt(document.getElementById("fruits").value);
+    let water = parseFloat(document.getElementById("waterIntake").value);
+    let junk = parseInt(document.getElementById("junk").value);
+    let sugar = document.getElementById("sugar").value;
+
+    let score = 10;
+
+    // Vegetable & fruit guidelines (≥5 combined servings ideal)
+    if ((vegetables + fruits) < 5) score -= 2;
+
+    // Water guideline (~2L/day)
+    if (water < 2) score -= 1;
+
+    // Junk frequency
+    if (junk > 3) score -= 2;
+    else if (junk > 1) score -= 1;
+
+    // Sugar intake
+    if (sugar === "moderate") score -= 1;
+    if (sugar === "high") score -= 2;
+
+    if (score < 0) score = 0;
+
+    let quality;
+    let color;
+
+    if (score >= 8) {
+        quality = "Excellent Diet Quality";
+        color = "green";
+    }
+    else if (score >= 5) {
+        quality = "Moderate Diet Quality";
+        color = "orange";
+    }
+    else {
+        quality = "Poor Diet Quality";
+        color = "red";
+    }
+
+    document.getElementById("dietScore").innerHTML =
+        `Diet Score: <strong style="color:${color}">${score}/10</strong>`;
+
+    document.getElementById("dietFeedback").innerHTML =
+        `${quality}. Consider improving hydration and reducing processed food intake.`;
+
+    document.getElementById("dietResultCard").style.display = "block";
+
+    // Save to dashboard
+    localStorage.setItem("diet", score);
+}
