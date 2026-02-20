@@ -1,5 +1,5 @@
 // ==========================
-// RISK MODULE LOGIC
+// RISK MODULE LOGIC (Premium Version)
 // ==========================
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -24,7 +24,7 @@ function calculateRisk() {
     let riskPoints = 0;
     let bmiCategory = "";
 
-    // ===== BMI Classification (WHO standard)
+    // ===== BMI Classification (WHO)
     if (bmi < 18.5) bmiCategory = "Underweight";
     else if (bmi < 25) bmiCategory = "Normal";
     else if (bmi < 30) {
@@ -36,91 +36,171 @@ function calculateRisk() {
         riskPoints += 2;
     }
 
-    // ===== Sleep Evaluation (General Medicine Reference)
+    // ===== Sleep (General Medicine Guideline: 7–9 hrs ideal)
     if (sleep < 5) riskPoints += 2;
     else if (sleep < 7) riskPoints += 1;
 
     // ===== Medication Adherence
+    const medLabels = {
+        ontime: "On time",
+        late1: "1–2 hours late",
+        late3: "3+ hours late",
+        missed: "Frequently missed"
+    };
+
     if (medPattern === "late1") riskPoints += 1;
     if (medPattern === "late3") riskPoints += 2;
     if (medPattern === "missed") riskPoints += 3;
 
-    // ===== Age Risk Factor
-    if (age > 45) riskPoints += 1;
+    // ===== Age Risk
     if (age > 60) riskPoints += 2;
+    else if (age > 45) riskPoints += 1;
 
     // ===== Final Classification
     let riskLevel;
-    let riskColor;
+    let badgeClass;
 
     if (riskPoints <= 2) {
         riskLevel = "Low Risk";
-        riskColor = "green";
+        badgeClass = "low";
     }
     else if (riskPoints <= 5) {
         riskLevel = "Moderate Risk";
-        riskColor = "orange";
+        badgeClass = "medium";
     }
     else {
         riskLevel = "High Risk";
-        riskColor = "red";
+        badgeClass = "high";
     }
 
-    // ===== Display Results
-    document.getElementById("bmiResult").innerHTML =
-        `BMI: ${bmi.toFixed(2)} (${bmiCategory})`;
+    // ===== Display Results (Cleaner UI)
+    document.getElementById("bmiResult").innerText =
+        `${bmi.toFixed(2)} (${bmiCategory})`;
 
-    document.getElementById("sleepResult").innerHTML =
-        `Sleep: ${sleep} hours/day`;
+    document.getElementById("sleepResult").innerText =
+        `${sleep} hours/day`;
 
-    document.getElementById("medResult").innerHTML =
-        `Medication Adherence: ${medPattern}`;
+    document.getElementById("medResult").innerText =
+        medLabels[medPattern];
 
     document.getElementById("riskResult").innerHTML =
-        `Overall Risk Level: <strong style="color:${riskColor}">${riskLevel}</strong>`;
+        `<span class="risk-badge ${badgeClass}">${riskLevel}</span>`;
 
-    document.getElementById("resultCard").style.display = "block";
+    const resultCard = document.getElementById("resultCard");
+    resultCard.style.display = "block";
+
+    // Smooth scroll to results
+    resultCard.scrollIntoView({ behavior: "smooth" });
 
     // Save to Dashboard
     localStorage.setItem("risk", riskLevel);
 }
 
-
-
 // ==========================
-// Habit Tracker Function
+// HABIT TRACKER (Advanced)
 // ==========================
+
 function calculateHabit() {
 
-    let total = 3;
+    const habits = [
+        "sleep",
+        "exercise",
+        "water",
+        "steps",
+        "sunlight",
+        "meditation",
+        "reading",
+        "gratitude",
+        "digital"
+    ];
+
+    let total = habits.length;
     let done = 0;
 
-    if (document.getElementById("sleep").checked) done++;
-    if (document.getElementById("exercise").checked) done++;
-    if (document.getElementById("water").checked) done++;
+    habits.forEach(id => {
+        if (document.getElementById(id).checked) done++;
+    });
 
-    let percentage = Math.round((done / total) * 100);
+    let baseScore = Math.round((done / total) * 80); // 80% from habits
 
-    // Update progress bar
-    document.getElementById("progressBar").style.width = percentage + "%";
+    // Mood & Energy contribution (20%)
+    let mood = parseInt(document.getElementById("mood").value) || 0;
+    let energy = parseInt(document.getElementById("energy").value) || 0;
 
-    let message = "";
+    let wellbeingScore = Math.round(((mood + energy) / 20) * 20);
 
-    if (percentage === 100)
-        message = "Excellent consistency! 🔥";
-    else if (percentage >= 60)
-        message = "Good job! Keep improving 💪";
-    else
-        message = "Try to complete more habits tomorrow 👍";
+    let finalScore = baseScore + wellbeingScore;
 
+    if (finalScore > 100) finalScore = 100;
+
+    document.getElementById("progressBar").style.width = finalScore + "%";
     document.getElementById("habitResult").innerText =
-        percentage + "% - " + message;
+        finalScore + "% Lifestyle Score";
 
-    localStorage.setItem("habit", percentage);
+    localStorage.setItem("habitToday", finalScore);
+
+    updateStreak(finalScore);
+    updateWeekly(finalScore);
+}
+// ==========================
+// STREAK SYSTEM
+// ==========================
+
+function updateStreak(percentage) {
+
+    let streak = parseInt(localStorage.getItem("habitStreak")) || 0;
+    let lastDate = localStorage.getItem("lastHabitDate");
+
+    let today = new Date().toDateString();
+
+    if (percentage === 100) {
+        if (lastDate !== today) {
+            streak++;
+            localStorage.setItem("habitStreak", streak);
+            localStorage.setItem("lastHabitDate", today);
+        }
+    }
+
+    document.getElementById("streakCount").innerText = streak + " Days";
 }
 
 // ==========================
-// DIET MODULE LOGIC
+// WEEKLY TRACKING
+// ==========================
+
+function updateWeekly(percentage) {
+
+    let weekData = JSON.parse(localStorage.getItem("weeklyHabits")) || [];
+
+    let today = new Date().toDateString();
+
+    if (!weekData.find(d => d.date === today)) {
+        weekData.push({ date: today, score: percentage });
+    }
+
+    if (weekData.length > 7) weekData.shift();
+
+    localStorage.setItem("weeklyHabits", JSON.stringify(weekData));
+
+    let completedDays = weekData.filter(d => d.score === 100).length;
+
+    document.getElementById("weeklyProgress").innerText =
+        completedDays + " / 7 Days";
+}
+
+// ==========================
+// RESET
+// ==========================
+
+function resetHabits() {
+    localStorage.removeItem("habitToday");
+    localStorage.removeItem("habitStreak");
+    localStorage.removeItem("weeklyHabits");
+    localStorage.removeItem("lastHabitDate");
+    location.reload();
+}
+// ==========================
+// DIET MODULE (Premium)
 // ==========================
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -143,46 +223,45 @@ function calculateDiet() {
 
     let score = 10;
 
-    // Vegetable & fruit guidelines (≥5 combined servings ideal)
+    // General nutrition guidelines
     if ((vegetables + fruits) < 5) score -= 2;
-
-    // Water guideline (~2L/day)
     if (water < 2) score -= 1;
 
-    // Junk frequency
     if (junk > 3) score -= 2;
     else if (junk > 1) score -= 1;
 
-    // Sugar intake
     if (sugar === "moderate") score -= 1;
     if (sugar === "high") score -= 2;
 
     if (score < 0) score = 0;
 
     let quality;
-    let color;
+    let badgeClass;
 
     if (score >= 8) {
         quality = "Excellent Diet Quality";
-        color = "green";
+        badgeClass = "low";
     }
     else if (score >= 5) {
         quality = "Moderate Diet Quality";
-        color = "orange";
+        badgeClass = "medium";
     }
     else {
         quality = "Poor Diet Quality";
-        color = "red";
+        badgeClass = "high";
     }
 
     document.getElementById("dietScore").innerHTML =
-        `Diet Score: <strong style="color:${color}">${score}/10</strong>`;
+        `<span class="risk-badge ${badgeClass}">${score}/10</span>`;
 
-    document.getElementById("dietFeedback").innerHTML =
-        `${quality}. Consider improving hydration and reducing processed food intake.`;
+    document.getElementById("dietFeedback").innerText =
+        quality + ". Improve hydration and reduce processed food intake.";
 
     document.getElementById("dietResultCard").style.display = "block";
 
-    // Save to dashboard
+    document.getElementById("dietResultCard").scrollIntoView({
+        behavior: "smooth"
+    });
+
     localStorage.setItem("diet", score);
 }

@@ -1,168 +1,265 @@
-/* Reset */
+/* =========================
+   RESET
+========================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* =========================
+   DARK NAVY BACKGROUND
+========================= */
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(to right, #6a11cb, #2575fc);
+    font-family: 'Inter', 'Segoe UI', sans-serif;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    color: #e2e8f0;
+
+    background: radial-gradient(circle at center, 
+        #0f3a4a 0%, 
+        #071a2d 40%, 
+        #020617 85%);
 }
 
-/* Title */
+/* =========================
+   PAGE WRAPPER
+========================= */
+.page-wrapper {
+    max-width: 1100px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+/* =========================
+   GENERAL TITLE
+========================= */
 .title {
-    margin: 40px 0;
-    color: white;
     font-size: 32px;
-    font-weight: bold;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #ffffff;
 }
 
-/* Container */
-.container {
-    display: flex;
-    flex-direction: column;   /* makes vertical */
-    gap: 30px;
-    align-items: center;
-    margin-bottom: 50px;
+/* =========================
+   TWO COLUMN LAYOUT
+========================= */
+.two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
 }
 
-/* Card */
+/* =========================
+   CARD (Dark Glass Effect)
+========================= */
 .card {
-    background: white;
-    width: 280px;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    text-align: center;
-    transition: 0.3s ease;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(10px);
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.05);
 }
 
-.card:hover {
-    transform: translateY(-8px);
-}
-
-/* Card Title */
+/* =========================
+   SECTION HEADINGS
+========================= */
 .card h2 {
-    margin-bottom: 15px;
-    color: #333;
-}
-
-/* Result Text */
-.card p {
-    font-size: 18px;
+    font-size: 20px;
     margin-bottom: 20px;
-    font-weight: bold;
-    color: #6a11cb;
+    font-weight: 600;
+    color: #38bdf8;
 }
 
-/* Button */
-.btn {
-    display: inline-block;
-    padding: 10px 18px;
-    background: #6a11cb;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-size: 14px;
-    transition: 0.3s ease;
-}
-
-.btn:hover {
-    background: #4b0fa3;
-}
-
-
-
-.habit-item {
-    text-align: left;
-    margin: 10px 0;
-    font-size: 16px;
-}
-
-.progress-container {
-    width: 100%;
-    background: #eee;
-    border-radius: 20px;
-    margin: 15px 0;
-    height: 20px;
-    overflow: hidden;
-}
-
-.progress-bar {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(to right, #6a11cb, #2575fc);
-    transition: width 0.4s ease;
-}
-
-
-.section-card {
-    background: white;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    width: 350px;
-    margin-bottom: 30px;
-}
-
+/* =========================
+   INPUT GROUP
+========================= */
 .input-group {
-    margin-bottom: 15px;
-    text-align: left;
+    margin-bottom: 20px;
 }
 
 .input-group label {
     display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
+    font-size: 14px;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #cbd5e1;
 }
 
 .input-group input,
 .input-group select {
     width: 100%;
-    padding: 8px;
+    padding: 12px;
     border-radius: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid #334155;
+    font-size: 14px;
+    background: #0f172a;
+    color: #e2e8f0;
+    transition: 0.2s ease;
 }
 
-.result-card {
-    margin-top: 20px;
-}
-
-.risk-highlight {
-    font-size: 20px;
-    font-weight: bold;
-}
-
-
-/* Improve form spacing */
-form h2 {
-    margin-top: 20px;
-    margin-bottom: 15px;
-    color: #6a11cb;
-}
-
-/* Smooth input focus effect */
 .input-group input:focus,
 .input-group select:focus {
     outline: none;
-    border: 2px solid #6a11cb;
-    box-shadow: 0 0 5px rgba(106,17,203,0.4);
+    border-color: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34,197,94,0.2);
 }
 
-/* Better result card spacing */
-.result-card p {
-    margin: 10px 0;
-    font-size: 16px;
+/* =========================
+   BUTTON (General)
+========================= */
+.btn {
+    display: inline-block;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #1d4ed8, #22c55e);
+    color: white;
+    border-radius: 8px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+    text-decoration: none;
+    font-weight: 600;
 }
 
-/* Responsive improvement */
-@media (max-width: 600px) {
-    .section-card {
-        width: 90%;
+.btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   RESULTS DESIGN
+========================= */
+.result-item {
+    margin-bottom: 20px;
+    padding: 16px;
+    border-radius: 10px;
+    background: rgba(30, 41, 59, 0.7);
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.result-label {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-bottom: 5px;
+}
+
+.result-value {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* =========================
+   RISK BADGES
+========================= */
+.risk-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.low {
+    background: rgba(34,197,94,0.15);
+    color: #22c55e;
+}
+
+.medium {
+    background: rgba(250,204,21,0.15);
+    color: #facc15;
+}
+
+.high {
+    background: rgba(239,68,68,0.15);
+    color: #ef4444;
+}
+
+/* =========================
+   DASHBOARD LAYOUT
+========================= */
+.dashboard-wrapper {
+    max-width: 900px;
+    margin: 80px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+/* Dashboard Main Title */
+.dashboard-title {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 60px;
+    letter-spacing: 1px;
+    color: #ffffff;
+}
+
+/* Cards Container */
+.dashboard-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Dashboard Card */
+.dashboard-card {
+    background: rgba(15, 23, 42, 0.85);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    transition: 0.3s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-6px);
+}
+
+/* Dashboard Card Title */
+.dashboard-card h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #38bdf8;
+}
+
+/* Status Text */
+.dashboard-status {
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+/* Dashboard Button */
+.dashboard-btn {
+    padding: 12px 28px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #1d4ed8, #22c55e);
+    border: none;
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.dashboard-btn:hover {
+    transform: scale(1.05);
+    opacity: 0.95;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+    .two-column {
+        grid-template-columns: 1fr;
+    }
+
+    .title {
+        text-align: center;
+    }
+
+    .dashboard-title {
+        font-size: 32px;
     }
 }

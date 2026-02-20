@@ -6,38 +6,106 @@
 </head>
 <body>
 
-<h1 class="title">Habit Tracker</h1>
+<div class="page-wrapper">
 
-<div class="card habit-card">
+    <h1 class="title">Habit & Lifestyle Tracker</h1>
 
-    <h2>Daily Habits</h2>
+    <div class="card">
 
-    <div class="habit-item">
-        <input type="checkbox" id="sleep">
-        <label for="sleep">😴 7+ Hours Sleep</label>
+        <!-- ================= PHYSICAL ================= -->
+        <h2>🏃 Physical Wellness</h2>
+
+        <div class="habit-item">
+            <input type="checkbox" id="sleep">
+            <label for="sleep">😴 7+ Hours Sleep</label>
+        </div>
+
+        <div class="habit-item">
+            <input type="checkbox" id="exercise">
+            <label for="exercise">🏃 30 min Exercise</label>
+        </div>
+
+        <div class="habit-item">
+            <input type="checkbox" id="water">
+            <label for="water">💧 2L Water</label>
+        </div>
+
+        <div class="habit-item">
+            <input type="checkbox" id="steps">
+            <label for="steps">👣 8000+ Steps</label>
+        </div>
+
+        <div class="habit-item">
+            <input type="checkbox" id="sunlight">
+            <label for="sunlight">🌞 15 min Sunlight</label>
+        </div>
+
+        <!-- ================= MENTAL ================= -->
+        <h2 style="margin-top:30px;">🧠 Mental & Productivity</h2>
+
+        <div class="habit-item">
+            <input type="checkbox" id="meditation">
+            <label for="meditation">🧘 10 min Meditation</label>
+        </div>
+
+        <div class="habit-item">
+            <input type="checkbox" id="reading">
+            <label for="reading">📖 20 min Reading / Learning</label>
+        </div>
+
+        <div class="habit-item">
+            <input type="checkbox" id="gratitude">
+            <label for="gratitude">🙏 Practiced Gratitude</label>
+        </div>
+
+        <div class="habit-item">
+            <input type="checkbox" id="digital">
+            <label for="digital">📵 Screen Time < 3 hrs</label>
+        </div>
+
+        <!-- ================= SELF REPORT ================= -->
+        <h2 style="margin-top:30px;">📊 Self Rating</h2>
+
+        <div class="input-group">
+            <label>Mood (1-10)</label>
+            <input type="number" id="mood" min="1" max="10">
+        </div>
+
+        <div class="input-group">
+            <label>Energy Level (1-10)</label>
+            <input type="number" id="energy" min="1" max="10">
+        </div>
+
+        <br>
+
+        <button class="btn" onclick="calculateHabit()">Submit</button>
+        <button class="btn" onclick="resetHabits()" style="margin-left:10px;background:#ef4444;">Reset</button>
+
+        <!-- Progress -->
+        <div class="progress-container" style="margin-top:25px;">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <!-- Results -->
+        <div class="result-item">
+            <div class="result-label">Daily Lifestyle Score</div>
+            <div class="result-value" id="habitResult">0%</div>
+        </div>
+
+        <div class="result-item">
+            <div class="result-label">Current Streak</div>
+            <div class="result-value" id="streakCount">0 Days</div>
+        </div>
+
+        <div class="result-item">
+            <div class="result-label">Weekly Completion</div>
+            <div class="result-value" id="weeklyProgress">0 / 7 Days</div>
+        </div>
+
+        <br>
+        <a href="index.html" class="btn">Back to Dashboard</a>
+
     </div>
-
-    <div class="habit-item">
-        <input type="checkbox" id="exercise">
-        <label for="exercise">🏃 Exercise</label>
-    </div>
-
-    <div class="habit-item">
-        <input type="checkbox" id="water">
-        <label for="water">💧 2L Water</label>
-    </div>
-
-    <button class="btn" onclick="calculateHabit()">Submit</button>
-
-    <!-- Progress Bar -->
-    <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
-
-    <p id="habitResult"></p>
-
-    <br>
-    <a href="index.html" class="btn">Back to Dashboard</a>
 
 </div>
 

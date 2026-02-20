@@ -3,50 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <title>Smart Preventive Health Checker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <h1 class="title">Smart Preventive Health Checker</h1>
+<div class="dashboard-wrapper">
 
-    <div class="container">
+    <h1 class="dashboard-title">Smart Preventive Health Checker</h1>
+
+    <div class="dashboard-cards">
 
         <!-- Health Risk Card -->
-        <div class="card">
+        <div class="dashboard-card">
             <h2>Health Risk Assessment</h2>
-            <p id="riskResult">Not Assessed</p>
-            <a href="risk.html" class="btn">Assess Now</a>
+            <div class="dashboard-status" id="riskResult">
+                Not Assessed
+            </div>
+            <a href="risk.html">
+                <button class="dashboard-btn">Assess Now</button>
+            </a>
         </div>
 
         <!-- Diet Score Card -->
-        <div class="card">
+        <div class="dashboard-card">
             <h2>Diet Score</h2>
-            <p id="dietResult">Not Assessed</p>
-            <a href="diet.html" class="btn">Check Diet</a>
+            <div class="dashboard-status" id="dietResult">
+                Not Assessed
+            </div>
+            <a href="diet.html">
+                <button class="dashboard-btn">Check Diet</button>
+            </a>
         </div>
 
         <!-- Habit Tracker Card -->
-        <div class="card">
+        <div class="dashboard-card">
             <h2>Habit Tracker</h2>
-            <p id="habitResult">0%</p>
-            <a href="habits.html" class="btn">Track Habits</a>
+            <div class="dashboard-status" id="habitResult">
+                0%
+            </div>
+            <a href="habits.html">
+                <button class="dashboard-btn">Track Habits</button>
+            </a>
         </div>
 
     </div>
 
-    <script>
-        // Load stored values from localStorage
-        document.getElementById("riskResult").innerText =
-            localStorage.getItem("risk") || "Not Assessed";
+</div>
 
-        document.getElementById("dietResult").innerText =
-            localStorage.getItem("diet") || "Not Assessed";
+<script>
+    // Load stored values from localStorage
 
-        document.getElementById("habitResult").innerText =
-            localStorage.getItem("habit")
-                ? localStorage.getItem("habit") + "%"
-                : "0%";
-    </script>
+    const risk = localStorage.getItem("risk");
+    const diet = localStorage.getItem("diet");
+    const habit = localStorage.getItem("habitToday");
+
+    // Risk
+    if (risk) {
+        document.getElementById("riskResult").innerText = risk;
+    }
+
+    // Diet
+    if (diet) {
+        document.getElementById("dietResult").innerText = diet;
+    }
+
+    // Habit
+    if (habit) {
+        document.getElementById("habitResult").innerText = habit + "%";
+    }
+</script>
 
 </body>
 </html>
