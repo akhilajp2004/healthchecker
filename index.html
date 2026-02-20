@@ -1,1 +1,52 @@
-hi
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Preventive Health Checker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1 class="title">Smart Preventive Health Checker</h1>
+
+    <div class="container">
+
+        <!-- Health Risk Card -->
+        <div class="card">
+            <h2>Health Risk Assessment</h2>
+            <p id="riskResult">Not Assessed</p>
+            <a href="risk.html" class="btn">Assess Now</a>
+        </div>
+
+        <!-- Diet Score Card -->
+        <div class="card">
+            <h2>Diet Score</h2>
+            <p id="dietResult">Not Assessed</p>
+            <a href="diet.html" class="btn">Check Diet</a>
+        </div>
+
+        <!-- Habit Tracker Card -->
+        <div class="card">
+            <h2>Habit Tracker</h2>
+            <p id="habitResult">0%</p>
+            <a href="habits.html" class="btn">Track Habits</a>
+        </div>
+
+    </div>
+
+    <script>
+        // Load stored values from localStorage
+        document.getElementById("riskResult").innerText =
+            localStorage.getItem("risk") || "Not Assessed";
+
+        document.getElementById("dietResult").innerText =
+            localStorage.getItem("diet") || "Not Assessed";
+
+        document.getElementById("habitResult").innerText =
+            localStorage.getItem("habit")
+                ? localStorage.getItem("habit") + "%"
+                : "0%";
+    </script>
+
+</body>
+</html>
