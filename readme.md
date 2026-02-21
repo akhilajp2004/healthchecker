@@ -36,21 +36,11 @@ The system calculates risk levels and health scores using structured logic based
 - JavaScript (Vanilla JS)
 - LocalStorage API
 
----
+Link - https://drive.google.com/file/d/1B3Co2pGVO21GL-Qev5XEUF0WjtcX_dIM/view?usp=drive_link
 
 ## 🏗 System Architecture
-User
-↓
-Dashboard (index.html)
-↓
-Modules
-├── Risk Module (risk.html)
-├── Diet Module (diet.html)
-└── Habit Module (habits.html)
-↓
-Business Logic (app.js)
-↓
-LocalStorage (Data Persistence)
+<img width="1024" height="1536" alt="image" src="https://github.com/user-attachments/assets/fa71b700-ac8d-4e51-a40d-636c0d3849e4" />
+
 
 
 ## 📜 License
